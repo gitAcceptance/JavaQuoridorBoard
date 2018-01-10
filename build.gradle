@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.jgrapht', name: 'jgrapht-core', version: '0.9.1'
+    compile fileTree(dir: 'libs', include: '*.jar')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+	manifest {
+		attributes('Class-Path': configurations.compile.collect { "../../libs/"+it.getName() }.join(' '))
+	}
+}

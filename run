@@ -1,0 +1,54 @@
+#!/bin/bash
+echo Building...
+./gradlew build -q
+
+count=$1
+
+function clean_up {
+	echo cleaning up
+	if [[ count -eq 2 ]]; then
+		kill -9 $pid1
+		kill -9 $pid2
+	else
+                kill -9 $pid1
+                kill -9 $pid2
+		kill -9 $pid3
+		kill -9 $pid4
+	fi
+}
+
+port1=$[ 1 + $[ RANDOM % 10000 ]]
+port2=$[ 1 + $[ RANDOM % 10000 ]]
+port3=$[ 1 + $[ RANDOM % 10000 ]]
+port4=$[ 1 + $[ RANDOM % 10000 ]]
+
+if [ "$port1" -lt "2000" ]; then
+	port1=$[ 1 + $[ RANDOM % 10000 ]]
+fi
+
+if [ "$port2" -lt "2000" ]; then
+	port2=$[ 1 + $[ RANDOM % 10000 ]]
+fi
+
+if [ "$port3" -lt "2000" ]; then
+	port3=$[ 1 + $[ RANDOM % 10000 ]]
+fi
+
+if [ "$port4" -lt "2000" ]; then
+	port4=$[ 1 + $[ RANDOM % 10000 ]]
+fi
+
+if [[ count -eq 2 ]]; then
+        echo Starting up two Servers on $port1 and $port2
+
+	gnome-terminal --geometry=150x50 --tab --title="Server 1" -e "java -cp build/libs/quoridorFE.jar quoridorFE.Server --port $port1" --tab --title="Server 2" -e "java -cp build/libs/quoridorFE.jar quoridorFE.Server --port $port2" --tab --title="Viewer" -e "java -cp build/libs/quoridorFE.jar quoridorFE.Client localhost:$port1 localhost:$port2 --gui --delay 1000"
+
+	echo Happy Hacking~
+else
+        echo Starting up four Servers on ports $port1, $port2, $port3 and $port4
+        gnome-terminal --geometry=150x50 --tab --title="Server 1" -e "java -cp build/libs/quoridorFE.jar quoridorFE.Server --port $port1" --tab --title="Server 2" -e "java -cp build/libs/quoridorFE.jar quoridorFE.Server --port $port2" --tab --title="Server 3" -e "java -cp build/libs/quoridorFE.jar quoridorFE.Server --port $port3" --tab --title="Server 4" -e "java -cp build/libs/quoridorFE.jar quoridorFE.Server --port $port4" --tab --title="Viewer" -e "java -cp build/libs/quoridorFE.jar quoridorFE.Client localhost:$port1 localhost:$port2 localhost:$port3 localhost:$port4 --gui --delay 2000"
+
+	echo Happy Hacking~
+fi
+
+exit 0
