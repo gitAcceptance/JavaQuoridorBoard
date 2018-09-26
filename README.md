@@ -1,5 +1,6 @@
 # JavaQuoridorBoard
-A java class for representing the board state for the game Quoridor
+A java class that represents a Quoridor board.
+More info can be found in the javdocs located in the doc folder.
 
 
 ![Image of UML](quoridorFEdiagram.png)
