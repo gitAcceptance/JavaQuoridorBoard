@@ -338,7 +338,7 @@ public class QuoridorBoard {
 	 * @param orientation The orientation of the wall. 
 	 */
 	public synchronized void placeWall(int player, int x, int y, char orientation) {
-		if (this.isValidMove(player, x, y, orientation) == false) throw new IllegalMoveException("You fucked up, scrub. You tried to place an invalid wall at [("+ x + ", " + y + ") " + orientation + ")]");
+		if (this.isValidMove(player, x, y, orientation) == false) throw new IllegalMoveException("You tried to place an invalid wall at [("+ x + ", " + y + ") " + orientation + ")]");
 		
 		Player p = this.getNodeByPlayerNumber(player).getPlayer();
 		
@@ -416,7 +416,7 @@ public class QuoridorBoard {
 	 */
 	public synchronized void movePawn(int player, int x, int y) {
 		if (this.isValidMove(player, x, y) == false) {
-			throw new IllegalMoveException("You fucked up, scrub.You tried to move a pawn to ("+ x + ", " + y + ")");
+			throw new IllegalMoveException("You tried to make an invalid move to move a pawn to ("+ x + ", " + y + ")");
 		} else {
 			movePawnUnchecked(player, x, y);
 		}
